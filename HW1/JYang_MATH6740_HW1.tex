@@ -216,11 +216,11 @@
 	To hedge against $\mathbf{v}^{I}=\begin{bmatrix} 1 & 0\end{bmatrix}^T$:
 	\begin{gather}
 		\begin{bmatrix} s^u & 1+r \\ s^d & 1+r \end{bmatrix}
-		\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}
+		\begin{bmatrix} x^{I}_1 \\ x^{I}_2 \end{bmatrix}
 		=
 		\begin{bmatrix} 1 \\ 0 \end{bmatrix},\nonumber\\
 		\Downarrow\nonumber\\
-		\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}
+		\begin{bmatrix} x^{I}_1 \\ x^{I}_2 \end{bmatrix}
 		=
 		\frac{1}{\left(s^u-s^d\right)\left(1+r\right)}
 		\begin{bmatrix} 1+r & -\left(1+r\right) \\ -s^d & s^u \end{bmatrix}
@@ -239,11 +239,11 @@
 	Similarly, to hedge against $\mathbf{v}^{II}=\begin{bmatrix} 0 & 1\end{bmatrix}^T$:
 	\begin{gather}
 		\begin{bmatrix} s^u & 1+r \\ s^d & 1+r \end{bmatrix}
-		\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}
+		\begin{bmatrix} x^{II}_1 \\ x^{II}_2 \end{bmatrix}
 		=
 		\begin{bmatrix} 0 \\ 1 \end{bmatrix},\nonumber\\
 		\Downarrow\nonumber\\
-		\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}
+		\begin{bmatrix} x^{II}_1 \\ x^{II}_2 \end{bmatrix}
 		=
 		\frac{1}{\left(s^u-s^d\right)\left(1+r\right)}
 		\begin{bmatrix} 1+r & -\left(1+r\right) \\ -s^d & s^u \end{bmatrix}
@@ -278,7 +278,31 @@
 	\end{equation}
 	
 \section{Q6}
+	Thanks to the fact that $\mathbf{M}$ is invertible, $\mathbf{q}^T \mathbf{M}=\left(1+r\right)\mathbf{s}_0^T$ yields $\mathbf{q}^T=\left(1+r\right)\mathbf{s}_0^T \mathbf{M}^{-1}$:
+	\begin{equation}
+		\begin{bmatrix} q_1 & q_2 \end{bmatrix}
+		=
+		\frac{1}{s^u-s^d}
+		\begin{bmatrix} s_0 & 1 \end{bmatrix}
+		\begin{bmatrix} 1+r & -\left(1+r\right) \\ -s^d & s^u \end{bmatrix}
+		=
+		\frac{1}{s^u-s^d}
+		\begin{bmatrix} \left(1+r\right)s_0 - s^d \\ -\left(1+r\right)s_0 + s^u \end{bmatrix}^T
+		.
+	\end{equation}
 	
+	Therefore the expected value of $\mathbf{v}^{I}=\begin{bmatrix} 1 & 0\end{bmatrix}^T$ is:
+	\begin{equation}
+		E_{\mathbf{q}}\left[\mathbf{v}^{I}\right]=\mathbf{q}^T \mathbf{v}^{I}
+		=\frac{\left(1+r\right)s_0 - s^d}{s^u-s^d}
+		,
+	\end{equation}
+	and the expected value of $\mathbf{v}^{I}=\begin{bmatrix} 1 & 0\end{bmatrix}^T$ is:
+	\begin{equation}
+		E_{\mathbf{q}}\left[\mathbf{v}^{II}\right]=\mathbf{q}^T \mathbf{v}^{II}
+		=\frac{-\left(1+r\right)s_0 + s^u}{s^u-s^d}
+		.
+	\end{equation}
 
 
 %	\appendix
