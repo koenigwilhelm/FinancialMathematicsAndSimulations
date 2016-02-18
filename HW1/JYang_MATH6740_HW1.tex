@@ -121,6 +121,12 @@
 			\begin{bmatrix} 1 \\ -s_0 \end{bmatrix} x_1, \text{ where } x_1<0
 		.
 	\end{equation}
+	An explicit example is:
+	\begin{equation}
+		\mathbf{x}=
+		\begin{bmatrix} -1 \\ s_0 \end{bmatrix}
+		.
+	\end{equation}
 	
 \section{Q2}
 	The incomplete market has been described with:
@@ -137,7 +143,70 @@
 			\mathbf{s}_0&= \begin{bmatrix} 1 & 1 & 1 \end{bmatrix}^T.
 		\end{aligned}
 	\end{equation}
-	This market is arbitrage-free if and only if there exists a risk-neutral probability vector $\mathbf{q}=\begin{bmatrix} q_1 & q_2 & q_3\end{bmatrix}^T$, such that:
+	To construct an arbitrage, we build a portfolio $\mathbf{x}=\begin{bmatrix} x_1 & x_2 & x_3 \end{bmatrix}^T$ with
+	\begin{equation}
+		\mathbf{x}^T \mathbf{s}_0 = x_1+x_2+x_3 = 0
+		,
+	\end{equation}
+	while making sure that the claim vector
+	\begin{equation}
+		\mathbf{v}=\mathbf{M} \mathbf{x}
+		=
+		\begin{bmatrix} 1 & 1+r & 1+s \\ 1 & 1+r & 1+s \\ 1 & 1+r & 1+s \end{bmatrix}
+		\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}
+		=
+		\left[x_1+\left(1+r\right)x_2+\left(1+s\right)x_3\right]
+		\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}
+	\end{equation}
+	is in the positive octant including its boundaries but excluding the origin. Combining the above 2 equations we have:
+	\begin{equation}
+		\mathbf{v}=
+		\left(r x_2+s x_3\right)
+		\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}
+		,
+	\end{equation}
+	therefore as long as $x_2\geq0, ~x_3\geq0, ~x_2+x_3>0$, we have a portfolio that takes advantage of the arbitrage. An explicit example would be:
+	\begin{equation}
+		\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}=
+		\begin{bmatrix} -2 \\ 1 \\ 1 \end{bmatrix}
+	\end{equation}
+	
+\section{Q3}
+	To ``design'' a $2\times2$ market with uniform risk-neutral probability, we assign value of $1/2$ to both $q_1$ and $q_2$. With $\mathbf{M}$ and $\mathbf{s}_0$ defined by Equation (\ref{EqnDefinitionMs0}), we have:
+	\begin{gather}
+		\begin{bmatrix} 1/2 & 1/2 \end{bmatrix}
+		\begin{bmatrix} s^u & 1+r \\ s^d & 1+r \end{bmatrix}
+		=
+		\left( 1+r \right)\begin{bmatrix} s_0 & 1 \end{bmatrix},\\
+		\Downarrow\nonumber\\
+		\label{EqnQ3nn1}
+		\begin{cases}
+			s^u + s^d = 2\left(1+r\right) s_0 \\
+			1+r = 1+r
+		\end{cases}.
+	\end{gather}
+	According to Equation (\ref{EqnQ3nn1}), we can set up such a market $\left(\mathbf{M},\mathbf{s}_0\right)$ with uniform risk-neutral probability with $r=.05$, $s_0=2$, $s^d=1.5$, and $s^u=2.7$:
+	\begin{subequations}
+		\label{EqnQ3soln}
+		\begin{equation}
+		\mathbf{M}=
+		\begin{bmatrix}
+		2.7 & 1.05 \\
+		1.5 & 1.05
+		\end{bmatrix}
+		,
+		\end{equation}
+		\begin{equation}
+		\mathbf{s}_0=
+		\begin{bmatrix}
+		2 & 1
+		\end{bmatrix}^T
+		.
+		\end{equation}
+	\end{subequations}
+	
+\section{Q4}
+	To find in this market a risk-neutral probability vector $\mathbf{q}=\begin{bmatrix} q_1 & q_2 & q_3\end{bmatrix}^T$, such that:
 	\begin{subequations}
 		\begin{align}
 			\begin{split}
@@ -164,44 +233,7 @@
 		\label{EqnQ2nn2}
 		\begin{bmatrix} 1 & 1+r & 1+s \end{bmatrix} = \left(1+s\right) \begin{bmatrix} 1 & 1 & 1 \end{bmatrix}.
 	\end{gather}
-	The fact that $\sum_{j} q_j = 1$ is employed in the above derivation. Apparently Equation (\ref{EqnQ2nn1}) is unsolvable as $\begin{bmatrix} 1 & 1+r & 1+s \end{bmatrix}$ and $\begin{bmatrix} 1 & 1 & 1 \end{bmatrix}$ are linearly independent given $0<r<s$; Equation (\ref{EqnQ2nn2}) further confirms this by futilely equating $1$ and $1+r$ with $1+s$. Therefore, this incomplete market has no arbitrage.
-	
-\section{Q3}
-	To ``design'' a $2\times2$ market with uniform risk-neutral probability, we assign value of $1/2$ to both $q_1$ and $q_2$. With $\mathbf{M}$ and $\mathbf{s}_0$ defined by Equation (\ref{EqnDefinitionMs0}), we have:
-	\begin{gather}
-		\begin{bmatrix} 1/2 & 1/2 \end{bmatrix}
-		\begin{bmatrix} s^u & 1+r \\ s^d & 1+r \end{bmatrix}
-		=
-		\left( 1+r \right)\begin{bmatrix} s_0 & 1 \end{bmatrix}\\
-		\Downarrow\nonumber\\
-		\label{EqnQ3nn1}
-		\begin{cases}
-			s^u + s^d = 2\left(1+r\right) s_0 \\
-			1+r = 1+r
-		\end{cases}
-	\end{gather}
-	According to Equation (\ref{EqnQ3nn1}), we can set up such a market $\left(\mathbf{M},\mathbf{s}_0\right)$ with uniform risk-neutral probability with $r=.05$, $s_0=2$, $s^d=1.5$, and $s^u=2.7$:
-	\begin{subequations}
-		\label{EqnQ3soln}
-		\begin{equation}
-		\mathbf{M}=
-		\begin{bmatrix}
-		2.7 & 1.05 \\
-		1.5 & 1.05
-		\end{bmatrix}
-		,
-		\end{equation}
-		\begin{equation}
-		\mathbf{s}_0=
-		\begin{bmatrix}
-		2 & 1
-		\end{bmatrix}^T
-		.
-		\end{equation}
-	\end{subequations}
-	
-\section{Q4}
-	No such risk-neutral probability vector $\mathbf{q}$ exists as shown with Equation (\ref{EqnQ2nn1}).
+	The fact that $\sum_{j} q_j = 1$ is employed in the above derivation. Apparently Equation (\ref{EqnQ2nn1}) is unsolvable as $\begin{bmatrix} 1 & 1+r & 1+s \end{bmatrix}$ and $\begin{bmatrix} 1 & 1 & 1 \end{bmatrix}$ are linearly independent given $0<r<s$; Equation (\ref{EqnQ2nn2}) further confirms this by futilely equating $1$ and $1+r$ with $1+s$. Therefore, this incomplete market has no risk-neutral probability vector.
 	
 \section{Q5}
 	A generic $2\times2$ market $\left(\mathbf{M},\mathbf{s}_0\right)$ is defined in Equation (\ref{EqnDefinitionMs0}); that it is arbitrage-free implies that $s^d<\left(1+r\right)s_0<s^u$, and therefore makes it complete by effecting $\mathbf{M}$ to be full-rank. Thus there exists the inverse of $\mathbf{M}$:
