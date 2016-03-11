@@ -71,37 +71,37 @@
 			.
 		\end{equation}
 	\end{subequations}
-	Since $X(n)$ is the number of heads in $n$ coin tosses, we define a set of random variable $\{\zeta_j\}$ to indicate if head shows up in the $j^\text{th}$ coin toss. Therefore:
+	Since $X(n)$ is the number of heads in $n$ coin tosses, we define a set of random variable $\{\xi_j\}$ to indicate if head shows up in the $j^\text{th}$ coin toss. Therefore:
 	\begin{equation}
-		\zeta_j =
+		\xi_j =
 		\begin{cases}
 			1 \quad w/~ p_u,\\
 			0 \quad w/~ p_d,
 		\end{cases}
 	\end{equation}
-	with the mean and variance of $\zeta_j$ being:
+	with the mean and variance of $\xi_j$ being:
 	\begin{subequations}
 		\begin{equation}
-			E[\zeta_j]=p_u
+			E[\xi_j]=p_u
 			,
 		\end{equation}
 		\begin{equation}
-			var(\zeta_j)=E[\zeta_j^2]-\left(E[\zeta_j]\right)^2=p_u \left(1-p_u\right)
+			var(\xi_j)=E[\xi_j^2]-\left(E[\xi_j]\right)^2=p_u \left(1-p_u\right)
 			.
 		\end{equation}
 	\end{subequations}
-	$X(n)$ is defined as the sum of the first $n$ elements in the set of i.i.d. variables $\{\zeta_j\}$:
+	$X(n)$ is defined as the sum of the first $n$ elements in the set of i.i.d. variables $\{\xi_j\}$:
 	\begin{equation}
-		X(n)=\sum_{j=1}^{n} \zeta_j
+		X(n)=\sum_{j=1}^{n} \xi_j
 		,
 	\end{equation}
 	\begin{subequations}
 		\begin{equation}
-			E[X(n)] = \sum_{j=1}^{n} E[\zeta_j] = n p_u
+			E[X(n)] = \sum_{j=1}^{n} E[\xi_j] = n p_u
 			,
 		\end{equation}
 		\begin{equation}
-			var(X(n)) = \sum_{j=1}^{n} var(\zeta_j) = n p_u \left(1-p_u\right)
+			var(X(n)) = \sum_{j=1}^{n} var(\xi_j) = n p_u \left(1-p_u\right)
 			.
 		\end{equation}
 	\end{subequations}
@@ -181,47 +181,64 @@
 			.
 		\end{equation}
 		
+		The expectation of $S(t)$ is:
+		\begin{equation}
+			E[S(t)]=S(0)\cdot e^{rt}
+			,
+		\end{equation}
+		as can be derived as the following or calculated according to log-normal distribution properties.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics*[width=12cm]{MyDerivationOfLogNormalExpectation.png}
+		\end{figure}
+		
 \section{Q4}
 	\begin{equation}
-		X(n)=
+		X_n=
 		\begin{cases}
 			+1, \quad p_u=1/2, \\
 			-1, \quad p_d=1/2,
 		\end{cases}
 	\end{equation}
 	\begin{equation}
-		S(n)=S(n-1)+X(n).
+		S_n=S_{n-1}+X_n.
 	\end{equation}
-	To show that the stochastic process $\{S(n)\}$ is a Martingale:
+	To show that the stochastic process $\{S_n\}$ is a Martingale:
 	\begin{equation}
+		\label{EqnQ4MartingaleProof}
 		\begin{split}
-			E_p[S(n+1)|\mathbb{F}_n](\omega_1\cdots\omega_n) &= E_p[S(n)+X(n+1)|\mathbb{F}_n](\omega_1\cdots\omega_n) \\
-			&= S(n)(\omega_1\cdots\omega_n) + E_p[X(n+1)|\mathbb{F}_n] \\
-			&= S(n)(\omega_1\cdots\omega_n) + \left(\frac{1}{2}\cdot 1+\frac{1}{2}\cdot (-1)\right) \\
-			&= S(n)(\omega_1\cdots\omega_n)
-			.
+			E_p[S_{n+1}|\mathbb{F}_n] &= E_p[S_n+X_{n+1}|\mathbb{F}_n] \\
+			&= \left(S_n|\mathbb{F}_n\right) + E_p[X(n+1)|\mathbb{F}_n] \\
+			&= s_n + \left(\frac{1}{2}\cdot 1+\frac{1}{2}\cdot (-1)\right) \\
+			&= s_n
+			,
 		\end{split}
 	\end{equation}
+	where $\mathbb{F}_n$ is the information known at Step $n$, and $s_n$ is the observed value of $S_n$, hence $s_n = \left(S_n|\mathbb{F}_n\right)$. Equation (\ref{EqnQ4MartingaleProof}) proved that $\{S_n\}$ is a Martingale by definition.
 	
 \section{Q5}
 	\begin{equation}
 		\begin{split}
-			E[S(n)]&=E[S(0)+\sum_{j=1}^{n} X(j)] \\
-			&=E[S(0)]+\sum_{j=1}^{n} E[X(j)] \\
+			E[S_n]&=E[S_0+\sum_{j=1}^{n} X_j] \\
+			&=E[S_0]+\sum_{j=1}^{n} E[X_j] \\
 			&=0
 			.
 		\end{split}
 	\end{equation}
 	\begin{equation}
 		\begin{split}
-			var(S(n))&=E[S(n)^2]-\left(E[S(n)]\right)^2 \\
-			&=E[\left(S(0)+\sum_{j=1}^{n}X(j)\right)^2]-\left(E[S(n)]\right)^2 \\
-			&=E[\sum_{j=1}^{n} X(j)^2] - 0 \\
-			&=\sum_{j=1}^{n} E[X(j)^2] \\
+			var(S_n)&=E[S_n^2]-\left(E[S_n]\right)^2 \\
+			&=E[\left(S_0+\sum_{j=1}^{n}X_j\right)^2]-\left(E[S_n]\right)^2 \\
+			&=E[\sum_{j=1}^{n} X_j^2] - 0 \\
+			&=\sum_{j=1}^{n} E[X_j^2] \\
 			&= n
 			.
 		\end{split}
 	\end{equation}
+	
+\section{Q6}
+	
 
 	
 \appendix
