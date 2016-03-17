@@ -19,6 +19,7 @@
  \usepackage{CJK}
  \usepackage{float}
  \usepackage{pdfpages}
+ \usepackage{mathtools}
  \restylefloat{table}
  \onehalfspacing
 
@@ -186,7 +187,7 @@
 			E[S(t)]=S(0)\cdot e^{rt}
 			,
 		\end{equation}
-		as can be derived as the following or calculated according to log-normal distribution properties.
+		which can be derived as the following or calculated according to log-normal distribution properties.
 		
 		\begin{figure}[H]
 			\centering
@@ -208,14 +209,14 @@
 	\begin{equation}
 		\label{EqnQ4MartingaleProof}
 		\begin{split}
-			E_p[S_{n+1}|\mathbb{F}_n] &= E_p[S_n+X_{n+1}|\mathbb{F}_n] \\
-			&= \left(S_n|\mathbb{F}_n\right) + E_p[X(n+1)|\mathbb{F}_n] \\
+			E_p[S_{n+1}\mid\mathbb{F}_n] &= E_p[S_n+X_{n+1}\mid\mathbb{F}_n] \\
+			&= \left(S_n\mid\mathbb{F}_n\right) + E_p[X(n+1)\mid\mathbb{F}_n] \\
 			&= s_n + \left(\frac{1}{2}\cdot 1+\frac{1}{2}\cdot (-1)\right) \\
 			&= s_n
 			,
 		\end{split}
 	\end{equation}
-	where $\mathbb{F}_n$ is the information known at Step $n$, and $s_n$ is the observed value of $S_n$, hence $s_n = \left(S_n|\mathbb{F}_n\right)$. Equation (\ref{EqnQ4MartingaleProof}) proved that $\{S_n\}$ is a Martingale by definition.
+	where $\mathbb{F}_n$ is the information known at Step $n$, and $s_n$ is the observed value of $S_n$, hence $s_n = \left(S_n\mid\mathbb{F}_n\right)$. Equation (\ref{EqnQ4MartingaleProof}) proved that $\{S_n\}$ is a Martingale by definition.
 	
 \section{Q5}
 	\begin{equation}
@@ -238,6 +239,110 @@
 	\end{equation}
 	
 \section{Q6}
+	Define a martingale:
+	\begin{equation}
+		S_n = e^{\sigma M_n} \left( \cosh{\sigma} \right)^{-n}
+		,
+	\end{equation}
+	where $M_n$ is symmetric random walk starting at $M_0 = 0$. The corresponding stopped martingale is also a martingale:
+	\begin{equation}
+		S_{n \wedge \tau_m} = e^{\sigma M_{n \wedge \tau_m}} \left( \cosh{\sigma} \right)^{-{n \wedge \tau_m}}
+		,
+	\end{equation}
+	where $\tau_m$ is the stopping time when the random walk first arrives and stops at $M_n = m$. Therefore
+	\begin{equation}
+		E[S_{n \wedge \tau_m} \mid \mathbb{F}_0] = S_{0 \wedge \tau_m} = S_0 = 1
+		.
+	\end{equation}
+	Taking the limit of the above equation when $n \to \infty$:
+	\begin{eqnarray}
+		\lim_{n \to \infty} E[S_{n \wedge \tau_m}]
+		&=&
+		\lim_{n \to \infty} E[e^{\sigma M_{n \wedge \tau_m}} \left( \cosh{\sigma} \right)^{-{n \wedge \tau_m}}]
+		\nonumber\\
+		&=&
+		E[\lim_{n \to \infty} e^{\sigma M_{n \wedge \tau_m}} \left( \cosh{\sigma} \right)^{-{n \wedge \tau_m}}]
+		\nonumber\\
+		&=&
+		E[e^{\sigma m} \left( \cosh{\sigma} \right)^{-\tau_m}]
+		=1
+		,
+	\end{eqnarray}
+	where the second equality is based on Lebesgue's Dominated Convergence Theorem, while the third equality is based on the fact that $P(\tau_m < \infty)=1$. Since only $\tau_m$ is stochastic in the above equation:
+	\begin{equation}
+		E[\left( \cosh{\sigma} \right)^{-\tau_m}] = e^{-\sigma m}
+		.
+	\end{equation}
+	Define $\alpha = \left( \cosh{\sigma} \right)^{-1} = 2/\left( e^{\sigma} + e^{-\sigma} \right)$, and choose $\sigma>0$ out of symmetry:
+	\begin{equation}
+		e^{-\sigma} = \frac{1-\sqrt{1-\alpha^2}}{\alpha}
+		\qquad\Rightarrow\qquad
+		-\sigma = \ln{ \frac{1-\sqrt{1-\alpha^2}}{\alpha} }
+		,
+	\end{equation}
+	therefore:
+	\begin{equation}
+		\label{eqn:MomentGenFunc1}
+		E[\alpha^{\tau_m}] = e^{-\sigma m} = \left( \frac{1-\sqrt{1-\alpha^2}}{\alpha} \right)^m
+		.
+	\end{equation}
+	Since the preceding derivations implied that $m>0$, for any non-zero stopping criterion level $m$, because the random walk is symmetric in this case, the moment generating function becomes:
+	\begin{equation}
+		E[\alpha^{\tau_m}] = \left( \frac{1-\sqrt{1-\alpha^2}}{\alpha} \right)^{|m|}
+		.
+	\end{equation}
+	Taking derivatives on both sides, and using Lebesgue's Dominated Convergence Theorem to move the derivative inside the expectation:
+	\begin{subequations}
+		\begin{eqnarray}
+			\frac{d}{d\alpha} E[\alpha^{\tau_m}]
+			&=&
+			E[\frac{d}{d\alpha} \alpha^{\tau_m}]
+			~=~
+			E[\tau_m \alpha^{\tau_m - 1}]
+			\nonumber\\
+			&=&
+			\frac{d}{d \alpha} \left( \frac{1-\sqrt{1-\alpha^2}}{\alpha} \right)^{|m|}
+			\nonumber\\
+			&=&
+			\frac{|m|\left( 1-\sqrt{1-\alpha^2} \right)^{|m|-1} \alpha^{-|m|+1} }{\sqrt{1-\alpha^2}} - |m|\frac{ \left( 1-\sqrt{1-\alpha^2} \right)^{|m|} }{ \alpha^{|m|+1} }
+			\nonumber\\
+			&=&
+			|m| \frac{ \left( 1-\sqrt{1-\alpha^2} \right)^{|m|} }{\alpha^{|m|+1} \sqrt{1-\alpha^2}}
+			,
+		\end{eqnarray}
+		\begin{eqnarray}
+			\frac{d^2}{d\alpha^2} E[\alpha^{\tau_m}]
+			&=&
+			E[\frac{d^2}{d\alpha^2} \alpha^{\tau_m}]
+			~=~
+			E[\left( \tau_m^2 - \tau_m \right) \alpha^{\tau_m - 2}]
+			\nonumber\\
+			&=&
+			|m| \frac{d}{d\alpha} \frac{ \left( 1-\sqrt{1-\alpha^2} \right)^{|m|} }{\alpha^{|m|+1} \sqrt{1-\alpha^2}}
+			\nonumber\\
+			&=&
+			|m| \frac{ \left( 1-\sqrt{1-\alpha^2} \right)^{|m|} \left[ -|m|\alpha^2 + |m| + \sqrt{1-\alpha^2}\left( 2\alpha^2-1 \right) \right] }{ \alpha^{|m|+2} \left( 1-\alpha^2 \right)^2 }
+			,
+		\end{eqnarray}
+	\end{subequations}
+	therefore:
+	\begin{subequations}
+		\begin{equation}
+			E[\tau_m] = \lim_{\alpha \to 1^{-}} E[\tau_m \alpha^{\tau_m - 1}]
+			= +\infty
+			,
+		\end{equation}
+		\begin{eqnarray}
+			var(\tau_m) &=& E[\tau_m^2]-\left(E[\tau_m]\right)^2
+			~=~ \lim_{\alpha \to 1^-} \left[ E[\left( \tau_m^2 - \tau_m \right) \alpha^{\tau_m - 2}] + E[\tau_m \alpha^{\tau_m - 1}] - \left(E[\tau_m \alpha^{\tau_m - 1}]\right)^2 \right]
+			\nonumber\\
+			&=&
+			\lim_{\alpha \to 1^-} \frac{ \left( \splitfrac{\left( 1-\sqrt{1-\alpha^2} \right)^{|m|} \left[ -m^2 \alpha^2 + m^2 + |m|\sqrt{1-\alpha^2}\left( 2\alpha^2-1 \right) \right] \alpha^{|m|} }{ + |m|\alpha^{|m|+1} \left(1-\alpha^2\right)^{3/2}\left( 1-\sqrt{1-\alpha^2} \right)^{|m|} - m^2 \left(1-\alpha^2\right)\left( 1-\sqrt{1-\alpha^2} \right)^{2|m|}} \right) }{\alpha^{2|m|+2} \left(1-\alpha^2\right)^2 }
+			\nonumber\\
+			&=& +\infty
+			.
+		\end{eqnarray}
+	\end{subequations}
 	
 
 	
