@@ -111,11 +111,12 @@
 			X_n=\sum\limits_{i=1}^{n} \frac{Y_i}{2^i}
 			.
 		\end{equation}
-		The binary number $\overline{Y_1 Y_2 \cdots Y_n}=\sum\limits_{i=1}^{n} 2^{n-i} Y_i$ is a random variable taking all integer values between $0$ and $2^n-1$ with equal probability $1/2^n$, therefore $X_n=\frac{1}{n} \overline{Y_1 Y_2 \cdots Y_n}$ is a random variable, with equal probability $1/2^n$, taking values in the set $\{0, \frac{1}{2^n}, \cdots, \frac{2^n-1}{2^n}\}$, which is an arithmetic series from $0$ to $(2^n-1)/2^n$ with common distance $1/2^n$, therefore:
+		The binary number $\overline{Y_1 Y_2 \cdots Y_n}=\sum\limits_{i=1}^{n} 2^{n-i} Y_i$ is a random variable taking all integer values between $0$ and $2^n-1$ with equal probability $1/2^n$, therefore $X_n=\frac{1}{n} \overline{Y_1 Y_2 \cdots Y_n}$ is a random variable, with equal probability $1/2^n$, taking values in the set $\{0, \frac{1}{2^n}, \cdots, \frac{2^n-1}{2^n}\}$, which is an arithmetic series from $0$ to $(2^n-1)/2^n$ with common distance $1/2^n$, thus:
 		\begin{equation}
 			P(\omega \in \Omega; \frac{k-1}{2^n} \leq X_n < \frac{k}{2^n}, k \in \mathbb{Z},k \in [1,2^n]) = \frac{1}{2^n}
-			.
+			,
 		\end{equation}
+		therefore $X_n$'s cumulative distribution function is c\`adl\`ag.
 		Now define a sequence of random variables $\{Z_n\}_{n=1}^{\infty}$, with each element $Z_n = N^{-1}(X_n)$, then for $\forall -\infty < a \leq b < \infty$, there is:
 		\begin{eqnarray}
 			\mu_{Z_n}[a,b]&=&P(\omega \in \Omega_\infty; a \leq Z_n(\omega) \leq b)
