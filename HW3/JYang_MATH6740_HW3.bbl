@@ -1,0 +1,11 @@
+\begin{thebibliography}{1}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+
+\bibitem[{Shreve(2004)}]{shreve2004stochastic}
+Shreve, S.~E., 2004. Stochastic calculus for finance II: Continuous-time
+  models. Vol.~11. Springer Science \& Business Media.
+
+\end{thebibliography}
