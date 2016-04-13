@@ -194,6 +194,29 @@
 			\includegraphics*[width=12cm]{MyDerivationOfLogNormalExpectation.png}
 		\end{figure}
 		
+		$E[S(t)]$ can also derived from $E[S(t)]=E[S(0) \cdot \prod\limits_{j=1}^{n} \eta_j]$, where $\eta_j$ is the stock price growth ratio over the $j^\mathrm{th}$ period:
+		\begin{equation}
+			\eta_j=\frac{S_j}{S_{j-1}}
+			,
+		\end{equation}
+		which form an i.i.d. random variable series $\{\eta_j\}_j$, with the expectation of each component being:
+		\begin{equation}
+			E[\eta_j]=u p_u + d p_d = u \frac{e^{r \Delta t} - d}{u-d} + d \frac{u - e^{r \Delta t}}{u-d} = e^{r \Delta t}
+			,
+		\end{equation}
+		therefore the expectation value is:
+		\begin{eqnarray}
+			E[S(t)]&=&E[S(0) \cdot \prod\limits_{j=1}^{n} \eta_j]
+			\nonumber\\
+			&=&S(0) \cdot E[\prod\limits_{j=1}^{n} \eta_j]
+			\nonumber\\
+			&=&S(0) \cdot \prod\limits_{j=1}^{n} E[\eta_j]
+			\nonumber\\
+			&=&S(0) \cdot \left( e^{r \Delta t} \right)^n = S(0) \cdot e^{rn\Delta t}
+			\nonumber\\
+			&=&S(0) \cdot e^{rt}
+		\end{eqnarray}
+		
 \section{Q4}
 	\begin{equation}
 		X_n=
