@@ -4,17 +4,26 @@ close all
 
 %%
 r=.1; sigma=.4; K=1;
-S_range=0:.05*K:2*K;
-tau_range=0:.05:3;
+dS=.05; dtau=.05;
+S_range=(dS:dS:2)*K;
+tau_range=0:dtau:3;
 [S,tau]=meshgrid(S_range,tau_range);
 [c,p,deltac,deltap,gamma,thetac,thetap,vega,volga] = optionCalc(S,tau,r,sigma,K);
-[cm,pm]=optionMonteCarlo(S,tau,r,sigma,K,10000);
 
+[cm,pm]=optionMonteCarlo(S,tau,r,sigma,K,10000,1);
 numg=length(S_range)*length(tau_range);
 ccm_diff=c-cm;
 ppm_diff=p-pm;
 disp(['average call price error of Monte Carlo: ' num2str(sqrt(sum(sum(ccm_diff.^2))/numg))])
 disp(['average put price error of Monte Carlo: ' num2str(sqrt(sum(sum(ppm_diff.^2))/numg))])
+% figure()
+% hold on
+% mesh(S,tau,c-cm)
+% mesh(S,tau,p-pm);set(gca,'FontSize',14)
+% hold off
+% xlabel('S/K')
+% ylabel('\tau')
+% zlabel('\Delta c, \Delta p')
 
 figure()
 hold on
