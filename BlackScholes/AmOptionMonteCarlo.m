@@ -3,7 +3,7 @@ close all
 clear all
 
 %%
-S0=40;
+S0=42;
 K=40;
 T=2;
 r=.06;
@@ -13,17 +13,23 @@ ntime=1000;
 dt=T/ntime;
 tt=0:dt:T;
 
-paths=zeros(npath,ntime+1)+S0;
+paths=zeros(2*npath,ntime+1)+S0;
 coef=r-.5*sigma^2;
 for ix=1:ntime
     zrnd=randn(npath,1);
-    paths(:,ix+1)=paths(:,ix).*exp(coef*dt+sqrt(dt)*sigma*zrnd);
+    % original paths
+    paths(1:npath,ix+1)=paths(1:npath,ix).*exp(coef*dt+sqrt(dt)*sigma*zrnd);
+    % antithetic variates
+    paths(npath+1:end,ix+1)=paths(npath+1:end,ix).*exp(coef*dt-sqrt(dt)*sigma*zrnd);
 end
 
-% figure()
-% plot(tt'*ones(1,npath),paths')
+figure()
+plot(tt'*ones(1,2*npath),paths');set(gca,'FontSize',14)
+xlabel('t')
+ylabel('S(t)')
+title({'Stock Price Paths';['T=' num2str(T) '; r=' num2str(r) '; \sigma=' num2str(sigma) '; S_0=' num2str(S0)]})
 
-V=zeros(npath,ntime+1);
+V=zeros(2*npath,ntime+1);
 V(:,end)=max(K-paths(:,end),0);
 for ix=ntime:-1:1
     excpayoff=max(K-paths(:,ix),0);
@@ -35,5 +41,10 @@ for ix=ntime:-1:1
         indsel=excpayoff>V(:,ix);
     end
     V(indsel,ix)=excpayoff(indsel);
+%     paths(indsel,ix+1:end)=paths(indsel,ix)*ones(1,ntime+1-ix);
 end
-disp(['put option price= ' num2str(mean(V(:,2))*exp(-r*dt))])
+disp(['American put option price= ' num2str(mean(V(:,2))*exp(-r*dt))])
+[~,p,~,~,~,~,~,~,~]=optionCalc(S0,T,r,sigma,K);
+disp(['European put option price= ' num2str(p)])
+% figure()
+% plot(tt'*ones(1,2*npath),paths')
