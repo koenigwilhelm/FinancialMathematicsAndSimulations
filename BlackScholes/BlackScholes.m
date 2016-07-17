@@ -8,6 +8,13 @@ S_range=0:.05*K:2*K;
 tau_range=0:.05:3;
 [S,tau]=meshgrid(S_range,tau_range);
 [c,p,deltac,deltap,gamma,thetac,thetap,vega,volga] = optionCalc(S,tau,r,sigma,K);
+[cm,pm]=optionMonteCarlo(S,tau,r,sigma,K,10000);
+
+numg=length(S_range)*length(tau_range);
+ccm_diff=c-cm;
+ppm_diff=p-pm;
+disp(['average call price error of Monte Carlo: ' num2str(sqrt(sum(sum(ccm_diff.^2))/numg))])
+disp(['average put price error of Monte Carlo: ' num2str(sqrt(sum(sum(ppm_diff.^2))/numg))])
 
 figure()
 hold on
